@@ -1,0 +1,35 @@
+.home{
+    background-color: rgba(128, 128, 128, 0.13);
+}
+.padre{
+    margin-bottom: 2rem;
+}
+button {
+    border-radius: 3px;
+    box-shadow: 1px 1px 1px 1px;
+    width: 120px;
+    height: 60px;
+    background-color: bisque;
+    font-style: italic;
+}
+.product-card{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    border: 1px solid gray;
+}
+.img-box img{
+    width: 50%;
+    margin: auto;
+}
+.img-box{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+button{
+    width: 80%;
+    margin: auto;
+}
