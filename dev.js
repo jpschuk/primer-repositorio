@@ -14,19 +14,23 @@ class Productos {
 
 // Carga de productos almacenados en localStorage para futuro tratamiento
 let productos = [];
+let productosEnLocalStorage =[];
 const loadProducts = () => {
-	if (!localStorage.getItem('productosAlmacenados')) {
-		productos.push(new Productos(1, 'Leche', 200, 'https://statics-cuidateplus.marca.com/cms/styles/natural/azblob/lecheok_0.jpg.webp?itok=0XaoEZv0'));
-		productos.push(new Productos(2, 'Pan', 100, 'https://statics-cuidateplus.marca.com/cms/styles/natural/azblob/lecheok_0.jpg.webp?itok=0XaoEZv0'));
-		productos.push(new Productos(3, 'Huevos', 150, 'https://statics-cuidateplus.marca.com/cms/styles/natural/azblob/lecheok_0.jpg.webp?itok=0XaoEZv0'));
-		localStorage.setItem('productosAlmacenados', JSON.stringify(productos));
-	} else {
-		let productosEnLocalStorage = localStorage.getItem('productosAlmacenados');
-		productos = JSON.parse(productosEnLocalStorage);
-	}
-	if (!localStorage.getItem('cart')) {
-		localStorage.setItem('cart', '[]');
-	}
+	(localStorage.getItem('productosAlmacenados') === null) ? 
+	(
+		productos.push(new Productos(1, 'Leche', 200, 'https://statics-cuidateplus.marca.com/cms/styles/natural/azblob/lecheok_0.jpg.webp?itok=0XaoEZv0')),
+		productos.push(new Productos(2, 'Pan', 100, 'https://statics-cuidateplus.marca.com/cms/styles/natural/azblob/lecheok_0.jpg.webp?itok=0XaoEZv0')),
+		productos.push(new Productos(3, 'Huevos', 150, 'https://statics-cuidateplus.marca.com/cms/styles/natural/azblob/lecheok_0.jpg.webp?itok=0XaoEZv0')),
+		localStorage.setItem('productosAlmacenados', JSON.stringify(productos))
+	) : (
+		productosEnLocalStorage = localStorage.getItem('productosAlmacenados'),
+		productos = JSON.parse(productosEnLocalStorage)
+		)
+
+
+		if (!localStorage.getItem('cart')) {
+			localStorage.setItem('cart', '[]');
+		}
 };
 // Creacion y manipulacion de elementosHTML (DOM)
 
