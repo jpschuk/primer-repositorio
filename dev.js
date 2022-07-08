@@ -14,23 +14,23 @@ class Productos {
 
 // Carga de productos almacenados en localStorage para futuro tratamiento
 let productos = [];
-let productosEnLocalStorage =[];
+let productosEnLocalStorage = [];
 const loadProducts = () => {
-	(localStorage.getItem('productosAlmacenados') === null) ? 
+	(localStorage.getItem('productosAlmacenados') === null) ?
 	(
 		productos.push(new Productos(1, 'Leche', 200, 'https://statics-cuidateplus.marca.com/cms/styles/natural/azblob/lecheok_0.jpg.webp?itok=0XaoEZv0')),
-		productos.push(new Productos(2, 'Pan', 100, 'https://statics-cuidateplus.marca.com/cms/styles/natural/azblob/lecheok_0.jpg.webp?itok=0XaoEZv0')),
-		productos.push(new Productos(3, 'Huevos', 150, 'https://statics-cuidateplus.marca.com/cms/styles/natural/azblob/lecheok_0.jpg.webp?itok=0XaoEZv0')),
+		productos.push(new Productos(2, 'Pan', 100, 'https://i.ytimg.com/vi/v8F6yJt1ULo/maxresdefault.jpg')),
+		productos.push(new Productos(3, 'Huevos', 150, 'https://imgmedia.buenazo.pe/1200x660/buenazo/original/2020/09/24/5f6d16de332f3648fb38e85a.jpg')),
 		localStorage.setItem('productosAlmacenados', JSON.stringify(productos))
 	) : (
 		productosEnLocalStorage = localStorage.getItem('productosAlmacenados'),
 		productos = JSON.parse(productosEnLocalStorage)
-		)
+	)
 
 
-		if (!localStorage.getItem('cart')) {
-			localStorage.setItem('cart', '[]');
-		}
+	if (!localStorage.getItem('cart')) {
+		localStorage.setItem('cart', '[]');
+	}
 };
 // Creacion y manipulacion de elementosHTML (DOM)
 
@@ -68,6 +68,7 @@ const addCartFuncToButtons = () => {
 		boton.addEventListener('click', addToCart);
 		boton.id = boton.id;
 	});
+	
 };
 
 const deleteCartToButtons = () => {
@@ -80,9 +81,30 @@ const deleteCartToButtons = () => {
 };
 
 const deleteFromCart = (event) => {
-	let cart = JSON.parse(localStorage.getItem('cart'));
-	cart = cart.filter((prod) => prod.id != event.currentTarget.id);
-	localStorage.setItem('cart', JSON.stringify(cart));
+	swal({
+			title: "Desea eliminar el producto?",
+			icon: "warning",
+			dangerMode: true,
+			buttons: {
+				cancel: "cancel",
+				catch: {
+					text: "eliminar",
+					value: event.currentTarget.id,
+				},
+
+			},
+		})
+		.then((value) => {
+			if (value) {
+				swal("Su producto ha sido eliminado", {
+					icon: "success",
+				});
+				let cart = JSON.parse(localStorage.getItem('cart'));
+				cart = cart.filter((prod) => prod.id != value);
+				localStorage.setItem('cart', JSON.stringify(cart));
+				mostrarCarrito();
+			}
+		});
 	mostrarCarrito();
 };
 
